@@ -1,0 +1,15 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##source=msprime 0.6.2
+##contig=<ID=1,length=3000000>
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##bcftools_viewVersion=1.6+htslib-1.6
+##bcftools_viewCommand=view -s msp_0,msp_1,msp_2 -Oz -o simulated_data_6_haplotypes.vcf.gz simulated_data.vcf.gz; Date=Thu Jun 27 22:00:23 2019
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	msp_0	msp_1	msp_2
+1	197	.	A	T	.	PASS	AC=1;AN=6	GT	0|0	0|1	0|0
+1	224	.	A	T	.	PASS	AC=0;AN=6	GT	0|0	0|0	0|0
+1	600	.	A	T	.	PASS	AC=0;AN=6	GT	0|0	0|0	0|0
+1	1469	.	A	T	.	PASS	AC=0;AN=6	GT	0|0	0|0	0|0
+1	1534	.	A	T	.	PASS	AC=0;AN=6	GT	0|0	0|0	0|0

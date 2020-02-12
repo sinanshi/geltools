@@ -1,0 +1,17 @@
+###  README --- /ssh:feng:/homes/kretzsch/dev/feng/measureAggregateRsquared/samples/v2.0/
+
+## Copyright 2014 Warren Winfried Kretzschmar
+##
+## Author: wkretzsch@gmail.com
+## Keywords: 
+
+# creation of mixedChrom gen files
+zcat ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.head1000.chr20.gen.gz | perl -pne '$rnd=int(rand(23))+1; s/^20/$rnd/' | gzip -c  >mixedChrom/ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.head1000.randChr.gen.gz
+
+gunzip mixedChrom/ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.head1000.randChr.gen.gz
+
+perl -MFile::Slurp -ane 'BEGIN{%s=();@l=read_file("mixedChrom/ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.head1000.randChr.gen"); map{@li=split(/ /); $s{$li[2]}=$li[0];}@l }  $F[0] = $s{$F[2]} if exists $s{$F[2]}; print join(" ", @F) . "\n"' <(gzip -dc ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.inChip.impute2.notInChip.head500.chr20.gen.gz) | gzip -c > mixedChrom/ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.inChip.impute2.notInChip.head500.randChr.gen.gz
+
+gzip mixedChrom/ALL.20130523.snps_indels.CGI.genotypes.nonGL.inRef.inGL.head1000.randChr.gen
+
+

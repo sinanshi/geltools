@@ -1,0 +1,19 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##filedate=20200110
+##source="beagle.25Nov19.28d.jar"
+##INFO=<ID=AF,Number=A,Type=Float,Description="Estimated ALT Allele Frequencies">
+##INFO=<ID=DR2,Number=1,Type=Float,Description="Dosage R-Squared: estimated squared correlation between estimated REF dose [P(RA) + 2*P(RR)] and true REF dose">
+##INFO=<ID=IMP,Number=0,Type=Flag,Description="Imputed marker">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DS,Number=A,Type=Float,Description="estimated ALT dose [P(RA) + 2*P(AA)]">
+##contig=<ID=1>
+##INFO=<ID=AC,Number=1,Type=Integer,Description="Allele count in genotypes">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##bcftools_viewVersion=1.9+htslib-1.9
+##bcftools_viewCommand=view -s msp_2925,msp_19083 -Oz -o 10k/out2.vcf.gz 10k/out.vcf.gz; Date=Sat Jan 11 21:34:11 2020
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	msp_2925	msp_19083
+1	47	.	A	TT	.	PASS	DR2=0.01;AF=0;IMP;AC=0;AN=4	GT:DS	1|1:1.95	0|1:1.11
+1	143	.	A	AT	.	PASS	DR2=0;AF=0;IMP;AC=0;AN=4	GT:DS	0|0:0.02	0|0:0.5
+1	170	.	A	T	.	PASS	DR2=1;AF=0.1075;IMP;AC=1;AN=4	GT:DS	0|0:0	0|1:1
+1	236	.	A	T	.	PASS	DR2=0;AF=0;IMP;AC=0;AN=4	GT:DS	0|0:0	0|0:0

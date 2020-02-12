@@ -1,0 +1,23 @@
+##fileformat=VCFv4.0
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20090805
+##source=myImputationProgramV3.1
+##reference=1000GenomesPilot-NCBI36
+##phasing=partial
+##FILTER=<ID=q10,Description="Quality below 10">
+##FILTER=<ID=s50,Description="Less than 50% of samples have data">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##ALT=<ID=CNV,Description="Copy number variable region">
+##contig=<ID=20>
+##bcftools_mergeVersion=1.9+htslib-1.9
+##bcftools_mergeCommand=merge test.vcf.gz test2.vcf.gz; Date=Thu Nov 28 07:43:16 2019
+##bcftools_mergeCommand=merge --force-sample test3.vcf.gz test4.vcf.gz; Date=Thu Nov 28 07:47:39 2019
+##bcftools_annotateVersion=1.9+htslib-1.9
+##bcftools_annotateCommand=annotate -x FORMAT,INFO ../tests/test_duotrio.vcf.gz; Date=Thu Nov 28 09:28:07 2019
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	unrelate_2	unrelate_3	unrelate_4	trio2_c1	trio1_c1	trio2_f	duo1_c	duo1_p	unrelate1	trio1_f	trio1_m	trio1_c2
+20	10370	.	G	A	.	.	.	GT	0|0	1|0	1/1	0|0	1|0	1/1	0|0	1|0	1/1	0|0	1|0	0|1
+20	10380	.	T	A	.	.	.	GT	0|0	0|1	0/0	0|0	0|1	0/0	0|0	0|1	0/0	0|0	0|1	0|0
+20	12302	.	T	.	.	.	.	GT	0|0	0|0	0/0	0|0	0|0	0/0	0|0	0|0	0/0	0|0	0|0	0|0
+20	12567	.	G	C	.	.	.	GT	0/1	0/1	1/1	0/1	0/1	1/1	0/1	0/1	1/1	1|1	0|1	0|1
+20	12237	.	T	A	.	.	.	GT	0/0	0|0	./.	0/0	0|0	./.	0/0	0|0	./.	0|0	0|0	0|1
