@@ -65,43 +65,29 @@ void ImputeRsquare::read_allele_frequency_category(string afname) {
 }
 
 void ImputeRsquare::aggregate_r2(string afname) {
-  read_allele_frequency_category(afname);
-  assert((int)allele_frequency_category.size() == impute_dose.nsite());
-  int n_category = *max_element(allele_frequency_category.begin(),
-      allele_frequency_category.end());
-  vector<vector<float>> impute_catg_dose(n_category + 1);
-  vector<vector<float>> true_catg_dose(n_category + 1);
-  vector<string> id_processed;
-  vector<int> category_processed;
+    read_allele_frequency_category(afname);
+    assert((int)allele_frequency_category.size() == impute_dose.nsite());
+    int n_category = *max_element(allele_frequency_category.begin(),
+            allele_frequency_category.end());
+    vector<vector<float>> impute_catg_dose(n_category + 1);
+    vector<vector<float>> true_catg_dose(n_category + 1);
 
-  for (int i = 0; i < impute_dose.nsite(); ++i) {
-    if (allele_frequency_category[i] >= 0) {
-      auto td = true_dose[impute_dose.rsid[i]];
-      if (td.size() > 0) {
-        id_processed.push_back(impute_dose.rsid[i]);
-        category_processed.push_back(allele_frequency_category[i]);
-        int k = allele_frequency_category[i];
-        impute_catg_dose[k].insert(
-            impute_catg_dose[k].end(),
-            impute_dose.data[i].begin(), impute_dose.data[i].end());
-        true_catg_dose[k].insert(true_catg_dose[k].end(),
-            td.begin(), td.end());
-      }
+    for (int i = 0; i < impute_dose.nsite(); ++i) {
+        if (allele_frequency_category[i] >= 0) {
+            int k = allele_frequency_category[i];
+            impute_catg_dose[k].insert(
+                    impute_catg_dose[k].end(),
+                    impute_dose.data[i].begin(), impute_dose.data[i].end());
+            auto td = true_dose[impute_dose.rsid[i]];
+            true_catg_dose[k].insert(true_catg_dose[k].end(),
+                    td.begin(), td.end());
+        }
     }
-  }
 
-  ofstream r2checkfile;
-  r2checkfile.open(afname + ".r2id");
-  for (size_t i = 0; i < id_processed.size(); ++i) {
-    r2checkfile << id_processed[i] << "," << category_processed[i] << endl;
-  }
-  r2checkfile.close();
-  cout << id_processed.size() << " variants processed." << endl;
-
-  ofstream r2file;
-  r2file.open(afname + ".r2");
-  for (int i = 0; i < n_category + 1; ++i) {
-    r2file << i << "," << r2(impute_catg_dose[i], true_catg_dose[i]) << endl;
-  }
-  r2file.close();
+    ofstream r2file;
+    r2file.open(afname + ".r2");
+    for (int i = 0; i < n_category + 1; ++i) {
+        r2file << r2(impute_catg_dose[i], true_catg_dose[i]) << endl;
+    }
+    r2file.close();
 }
