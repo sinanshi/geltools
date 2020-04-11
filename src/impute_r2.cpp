@@ -67,12 +67,17 @@ void ImputeRsquare::read_allele_frequency_category(string afname) {
 void ImputeRsquare::aggregate_r2(string afname) {
     read_allele_frequency_category(afname);
     assert((int)allele_frequency_category.size() == impute_dose.nsite());
+    cout << "Calculating R^2 of the imputed dataset containing " << 
+      impute_dose.nsite() << " sites with " << 
+      impute_dose.nsite() - impute_dose.nimputed <<
+      " imputed sites removed ..." << endl;
     int n_category = *max_element(allele_frequency_category.begin(),
             allele_frequency_category.end());
     vector<vector<float>> impute_catg_dose(n_category + 1);
     vector<vector<float>> true_catg_dose(n_category + 1);
 
     for (int i = 0; i < impute_dose.nsite(); ++i) {
+      if (impute_dose.site_is_imputed[i] == true) {
         if (allele_frequency_category[i] >= 0) {
             int k = allele_frequency_category[i];
             impute_catg_dose[k].insert(
@@ -82,6 +87,7 @@ void ImputeRsquare::aggregate_r2(string afname) {
             true_catg_dose[k].insert(true_catg_dose[k].end(),
                     td.begin(), td.end());
         }
+      }
     }
 
     ofstream r2file;

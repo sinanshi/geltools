@@ -43,9 +43,11 @@ class Dosage {
         int nsite() {return(data.size()); }
         int nsample() {return(data[0].size()); }
         bool genotype_as_dosage;
+        int nimputed;
         map<string, int> id_row_map;
         vector<string> rsid;
         vector<vector<float>> data;
+        vector<bool> site_is_imputed;
     private:
         vector<float> nulldose = vector<float>();
 };

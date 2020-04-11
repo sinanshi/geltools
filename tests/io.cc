@@ -56,9 +56,12 @@ TEST_CASE("read dosage from VCF files") {
   VCFProc vcf_reader = VCFProc(fname);
   Dosage impute_dosage(false);
   vcf_reader.read_all_dosage_by_site(impute_dosage);
+  CHECK(impute_dosage.nimputed == 3);
+  
   auto idose1 = impute_dosage[string("NAT-1:47_A_TT")];
   CHECK(idose1[0] == 1.95f); 
   CHECK(idose1[1] == 1.11f);
+
   auto idose2 = impute_dosage[string("IND-1:143_A_AT")];
   CHECK(idose2[0] == 0.02f); 
   CHECK(idose2[1] == 0.5f);

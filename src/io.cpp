@@ -71,20 +71,29 @@ void VCFProc::read_all_dosage_by_site(Dosage& dosage) {
   int32_t *gt = NULL;
   int ngt_arr = 0;
 
+  int32_t *imp = NULL;
+  int nimp = 0;
+
   polymorphic_pos.clear();
 
   htsFile *file = open_bcf_file(fname);
   bcf_hdr_t *hdr = bcf_hdr_read(file);
   bcf1_t *rec = bcf_init();
   string variant_type;
-
+  dosage.nimputed = 0;
   cout << "reading dosages (" << nsample << ")..." << endl;
-  
   while(bcf_read(file, hdr, rec) == 0) {
     bcf_unpack(rec, BCF_UN_STR);
     //! remove all the none bi-allelic cases.
     if (rec-> n_allele == 2) {
       polymorphic_pos.push_back(rec->pos + 1);
+      bool is_imputed = bcf_get_info_flag(hdr, rec, "IMP", &imp, &nimp);
+
+      if (is_imputed) {
+        dosage.site_is_imputed.push_back(true);
+        dosage.nimputed++;
+      } else 
+        dosage.site_is_imputed.push_back(false);
 
       if (dosage.genotype_as_dosage) {
         bcf_get_genotypes(hdr,rec, &gt, &ngt_arr);
